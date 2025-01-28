@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>LinkedIn Draft in an iFrame</title>
-    <style>
-      /* Fill the entire page with the iframe */
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      iframe {
-        width: 100vw;
-        height: 100vh;
-        border: none;
-      }
-    </style>
-  </head>
-  <body>
-    <iframe src="https://www.linkedin.com/pulse/draft/preview/7290122528293863426/?companyAuthorUrn=urn:li:fsd_company:105344256" title="LinkedIn Draft" allowfullscreen></iframe>
-  </body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html>
+<head>
+    <title>LinkedIn Draft in Frameset</title>
+</head>
+<frameset rows="*">
+    <frame src="https://www.linkedin.com/pulse/draft/preview/7290122528293863426/?companyAuthorUrn=urn:li:fsd_company:105344256" name="LinkedInFrame" frameborder="0" scrolling="auto" />
+    <noframes>
+        <body>
+            <p>Frames are not supported in your browser. Please visit <a href="https://www.linkedin.com/pulse/draft/preview/7290122528293863426/?companyAuthorUrn=urn:li:fsd_company:105344256">https://www.linkedin.com/pulse/draft/preview/7290122528293863426/?companyAuthorUrn=urn:li:fsd_company:105344256</a>.</p>
+        </body>
+    </noframes>
+</frameset>
 </html>
