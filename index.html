@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>LinkedIn Article Draft (Fixed)</title>
+  <title>LinkedIn Article Draft Redirect</title>
   <style>
     body { font-family: sans-serif; padding: 1em; }
     ol { margin: 1em 0; }
@@ -16,7 +16,7 @@
 <body>
   <!-- We'll wrap the entire instructions in a div so we can hide it if no URL param -->
   <div id="instructions">
-    <h1>Fix for LinkedIn Drafts Bug</h1>
+    <h1>LinkedIn Article Draft Redirect</h1>
     <p>
       LinkedIn has a long-standing bug in which it cannot display drafts of its own articles
       within the LinkedIn app. Please do the following:
@@ -48,7 +48,7 @@
         // show instructions with the host/path
         const fullHostPath = window.location.origin + window.location.pathname;
         container.innerHTML = `
-          <p id="warning">No LinkedIn Article Draft was provided.<br><br>
+          <p id="warning">No LinkedIn Article Draft Redirect was provided.<br><br>
           Please put in <strong>${fullHostPath}?URL=[your_drafts_url]</strong>
           </p>
         `;
