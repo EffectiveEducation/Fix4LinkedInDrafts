@@ -33,16 +33,20 @@
 
   <script>
     (function() {
-      // Grab "URL" param from the query string.
       let params = new URLSearchParams(window.location.search);
       let dynamicURL = params.get("URL");
-
       let container = document.getElementById('linkContainer');
+
       if (!dynamicURL) {
-        // No URL found, show a warning.
-        container.innerHTML =
-          "<p id=\"warning\">No URL parameter detected in the query string. " +
-          "Please add ?URL=someLink to this page's URL.</p>";
+        // Build an example to show the user, e.g., current origin + ?URL=someLinkedInDraft
+        let example = window.location.origin + window.location.pathname + "?URL=https://www.linkedin.com/pulse/draft/preview/123456/?companyAuthorUrn=whatever";
+
+        container.innerHTML = `
+          <p id=\"warning\">No URL parameter detected!<br><br>
+            To use this page, copy and paste your LinkedIn draft URL like this:<br><br>
+            <strong>${example}</strong>
+          </p>
+        `;
       } else {
         // If there's a second question mark, we can truncate everything after that.
         const secondQIndex = dynamicURL.indexOf("?", 8);
