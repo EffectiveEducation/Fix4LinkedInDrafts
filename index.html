@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>LinkedIn Draft Bug Workaround (Dynamic)</title>
+  <style>
+    body {{ font-family: sans-serif; padding: 1em; }}
+    ol {{ margin: 1em 0; }}
+    li {{ margin-bottom: 0.5em; }}
+    .icon {{ display: inline-flex; align-items: center; gap: 4px; }}
+    .icon svg {{ width: 1em; height: 1em; }}
+    #linkContainer {{ margin-top: 1em; }}
+    #warning {{ color: red; font-weight: bold; }}
+  </style>
+</head>
+<body>
+  <h1>LinkedIn Draft Bug Workaround</h1>
+  <p>
+    LinkedIn has a long-standing bug in which it cannot display drafts of its own articles
+    within the LinkedIn app. Please do the following:
+  </p>
+  <ol>
+    <li class="icon">Tap the share button <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><title>Share</title><circle cx="18" cy="5" r="3" ></circle><circle cx="6" cy="12" r="3" ></circle><circle cx="18" cy="19" r="3" ></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" ></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" ></line></svg></li>
+    <li>
+      In the share menu, choose the web browser of your choice (e.g. Chrome, Safari).
+    </li>
+    <li>
+      Once this page reopens in that browser, we'll show you the link below (if we find it).
+    </li>
+  </ol>
+
+  <div id="linkContainer"></div>
+
+  <script>
+    (function() {
+      // Grab "URL" param from the query string.
+      let params = new URLSearchParams(window.location.search);
+      let dynamicURL = params.get("URL");
+
+      let container = document.getElementById('linkContainer');
+      if (!dynamicURL) {
+        // No URL found, show a warning.
+        container.innerHTML =
+          "<p id=\"warning\">No URL parameter detected in the query string. " +
+          "Please add ?URL=someLink to this page's URL.</p>";
+      } else {
+        // If there's a second question mark, we can truncate everything after that.
+        const secondQIndex = dynamicURL.indexOf("?", 8);
+        if (secondQIndex !== -1) {
+          dynamicURL = dynamicURL.substring(0, secondQIndex);
+        }
+
+        // We have a (possibly truncated) URL, show the link.
+        container.innerHTML = `
+          <p>The article link is:</p>
+          <a href="${dynamicURL}">${dynamicURL}</a>
+        `;
+      }
+    })();
+  </script>
+</body>
+</html>
