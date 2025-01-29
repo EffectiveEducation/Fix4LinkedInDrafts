@@ -38,10 +38,11 @@
       let container = document.getElementById('linkContainer');
 
       if (!dynamicURL) {
-        // Show new text
+        // show instructions with the host/path
+        const fullHostPath = window.location.origin + window.location.pathname;
         container.innerHTML = `
           <p id="warning">No LinkedIn Article Draft was provided.<br><br>
-          Please put in <strong>https://EffectiveEducation.github.io/Fix4LinkedInDrafts/?URL=[your_drafts_url]</strong>
+          Please put in <strong>${fullHostPath}?URL=[your_drafts_url]</strong>
           </p>
         `;
       } else {
