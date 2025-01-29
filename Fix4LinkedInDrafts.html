@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <title>LinkedIn Draft Bug Workaround (Dynamic)</title>
   <style>
-    body { font-family: sans-serif; padding: 1em; }
-    ol { margin: 1em 0; }
-    li { margin-bottom: 0.5em; }
-    .icon { display: inline-flex; align-items: center; gap: 4px; }
-    .icon svg { width: 1em; height: 1em; }
-    #linkContainer { margin-top: 1em; }
-    #warning { color: red; font-weight: bold; }
+    body {{ font-family: sans-serif; padding: 1em; }}
+    ol {{ margin: 1em 0; }}
+    li {{ margin-bottom: 0.5em; }}
+    .icon {{ display: inline-flex; align-items: center; gap: 4px; }}
+    .icon svg {{ width: 1em; height: 1em; }}
+    #linkContainer {{ margin-top: 1em; }}
+    #warning {{ color: red; font-weight: bold; }}
   </style>
 </head>
 <body>
@@ -34,17 +34,23 @@
   <script>
     (function() {
       // Grab "URL" param from the query string.
-      const params = new URLSearchParams(window.location.search);
-      const dynamicURL = params.get("URL");
+      let params = new URLSearchParams(window.location.search);
+      let dynamicURL = params.get("URL");
 
-      const container = document.getElementById('linkContainer');
+      let container = document.getElementById('linkContainer');
       if (!dynamicURL) {
         // No URL found, show a warning.
         container.innerHTML =
-          "<p id="warning">No URL parameter detected in the query string. " +
+          "<p id=\"warning\">No URL parameter detected in the query string. " +
           "Please add ?URL=someLink to this page's URL.</p>";
       } else {
-        // We have a URL, show a link.
+        // If there's a second question mark, we can truncate everything after that.
+        const secondQIndex = dynamicURL.indexOf("?", 8);
+        if (secondQIndex !== -1) {
+          dynamicURL = dynamicURL.substring(0, secondQIndex);
+        }
+
+        // We have a (possibly truncated) URL, show the link.
         container.innerHTML = `
           <p>The article link is:</p>
           <a href="${dynamicURL}">${dynamicURL}</a>
