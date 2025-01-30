@@ -78,6 +78,13 @@
       border-top: 1px solid #eee;
       padding-top: 1em;
     }
+    .error-hint {
+      background: #f9fafb;
+      border-left: 4px solid #d97706;
+      padding: 1em;
+      margin-top: 2em;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -98,6 +105,11 @@
           Once this page loads in your actual web browser, click the link below.
         </li>
       </ol>
+      <p class="error-hint">
+        <strong>Note:</strong> If you see an error like <em>Page not found</em> or <em>Uh oh, we can’t seem to find the page you’re looking for</em>,
+        that means LinkedIn tried to open your draft in its own in-app browser.
+        Simply copy/paste your draft link directly into a real browser instead.
+      </p>
     </div>
 
     <div id="linkContainer"></div>
