@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>LinkedIn Article Draft Redirect</title>
   <style>
-    body { font-family: sans-serif; padding: 4em 1em 1em; } /* Extra top padding for LinkedIn's header bar */
+    body { font-family: sans-serif; padding: 4em 1em 1em; }
     ol { margin: 1em 0; }
     li { margin-bottom: 0.5em; }
     .icon { display: inline-flex; align-items: center; gap: 4px; }
@@ -12,6 +12,9 @@
     #linkContainer { margin-top: 1em; }
     #warning { color: red; font-weight: bold; }
     #instructions { margin-bottom: 1em; }
+    .hidden { display: none; }
+    button { padding: 0.5em 1em; margin-top: 1em; cursor: pointer; }
+    #fallback { margin-top: 2em; }
   </style>
 </head>
 <body>
@@ -34,19 +37,26 @@
   </div>
 
   <div id="linkContainer"></div>
+  <div id="fallback" class="hidden">
+    <hr>
+    <p>If sharing does not work, copy the link below and paste it into your real browser.</p>
+    <button id="copyBtn">Copy Link</button>
+  </div>
 
   <script>
     (function() {
       let params = new URLSearchParams(window.location.search);
       let dynamicURL = params.get("URL");
+
       let container = document.getElementById('linkContainer');
       let instructionsDiv = document.getElementById('instructions');
+      let fallbackDiv = document.getElementById('fallback');
+      let copyBtn = document.getElementById('copyBtn');
 
       if (!dynamicURL) {
         // Hide the instructions if there's no URL param
         instructionsDiv.style.display = 'none';
 
-        // show instructions with the host/path
         const fullHostPath = window.location.origin + window.location.pathname;
         container.innerHTML = `
           <p id="warning">No LinkedIn Article Draft was provided.<br><br>
@@ -54,15 +64,31 @@
           </p>
         `;
       } else {
+        // If there's a second question mark, we can truncate everything after that.
         const secondQIndex = dynamicURL.indexOf("?", 8);
         if (secondQIndex !== -1) {
           dynamicURL = dynamicURL.substring(0, secondQIndex);
         }
 
+        // Show the link
         container.innerHTML = `
           <p>The article link is:</p>
           <a href="${dynamicURL}">${dynamicURL}</a>
         `;
+
+        // Show fallback instructions for copying
+        fallbackDiv.classList.remove('hidden');
+
+        // Clicking the copy button writes to clipboard
+        copyBtn.addEventListener('click', function() {
+          navigator.clipboard.writeText(dynamicURL)
+            .then(() => {
+              alert('Draft link copied to clipboard!');
+            })
+            .catch(err => {
+              alert('Unable to copy link: ' + err);
+            });
+        });
       }
     })();
   </script>
